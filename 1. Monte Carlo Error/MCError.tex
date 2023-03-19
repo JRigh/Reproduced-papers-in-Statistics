@@ -1,0 +1,519 @@
+\documentclass[border=5mm, convert, usenames, dvipsnames,beamer]{standalone}
+\usetheme{Madrid}
+\usecolortheme{default}
+%Information to be included in the title page:
+\title{Sample title}
+\author{Anonymous}
+\institute{Overleaf}
+\date{2021}
+
+\usepackage[absolute,overlay]{textpos}
+
+\defbeamertemplate*{frametitle}{}[1][]
+{
+    \begin{textblock*}{12cm}(1cm,0.75cm)
+    {\color{purple} \fontsize{20}{43.2} \selectfont \insertframetitle}
+    \end{textblock*}
+    \begin{textblock*}{12cm}(1cm,2.5cm)
+    {\color{purple} \fontsize{20}{24} \selectfont \insertframesubtitle}
+    \end{textblock*}
+}
+
+
+
+\setbeamertemplate{footline}[frame number]
+\usepackage{ragged2e}
+
+\justifying
+\usepackage{lmodern}
+\usepackage{ImageMagick}
+\usepackage[utf8] {inputenc}
+\usefonttheme[onlymath]{serif}
+\usepackage[english] {label}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage[round] {natbib}
+\usepackage{color}     
+\usepackage{changepage}
+\usepackage[export]{adjustbox}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{minted}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage[svgnames]{xcolor}
+
+
+\lstset{language=R,
+    stringstyle=\color{DarkGreen},
+    otherkeywords={0,1,2,3,4,5,6,7,8,9},
+    morekeywords={TRUE,FALSE},
+    deletekeywords={data,frame,length,as,character},
+    keywordstyle=\color{blue},
+    commentstyle=\color{teal},
+}
+\newcommand{\a}{\item[\boldmath$ \mathclap{\color{red}(i)}$ ]}
+\newcommand{\b}{\item[\boldmath$ \mathclap{\color{red}(ii)}$ ]}
+\newcommand{\c}{\item[\boldmath$ \mathclap{\color{red}(iii)}$ ]}
+\newcommand{\d}{\item[\boldmath$ \mathclap{\color{red}(iv)}$ ]}
+
+
+\makeatletter
+\setbeamertemplate{frametitle}[default]{}
+\makeatother
+\usepackage{booktabs}
+
+
+\begin{document}
+
+\begin{frame}[ fragile]{}
+\frametitle{Monte Carlo error in simulation-based \\ statistical analyses: introduction}
+
+\vspace{45}
+\textbf{After Elizabeth Koehler, Elizabeth Brown and Sebastien J.-P. A. Haneuse (2009)}
+
+\vspace{20}
+\noindent
+$(i)$ \hspace{7} Draw attention on the importance of reporting Monte Carlo (MC) error. 
+
+\vspace{8}
+\noindent
+ $(ii)$\hspace{9} Provide simple and practical tools for estimating MC error.
+
+\vspace{8}
+\noindent
+ $(iii)$ \hspace{3} Provide means for determining the number of replications required to achieve a prespecified level of accuracy. \\
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Experiment 1:  
+estimators of operating \\ characteristics of the log-odds ratio (1/5)}
+
+\vspace{50}
+\noindent
+Assumed generating process:  \ \ $Logit(Y=1 \mid X) = \beta_{0} + \beta_{1}x
+
+\vspace{10}
+\noindent
+MC error of an estimator $\hat{\phi}$: \ \  $MCE(\hat{\phi}) = \sqrt{var(\hat{\phi})}$
+
+\vspace{10}
+\noindent
+\textbf{Setting 1}: 
+
+\vspace{4}
+\noindent
+ $(i)$  Quantification of association between $Y$ and $X$, two binary r.v.
+
+\vspace{4}
+\noindent
+ $(ii)$ Assessment of some operating characteristics of the Maximum Likelihood Estimator (MLE) of the slope (i.e. log-
+odds ratio)
+
+\vspace{20}
+\noindent
+N (sample size) = 100
+
+\vspace{4}
+\noindent
+R (number of replicates) = 100, 500, 1,000, 2,500, 5,000, 10,000
+
+\vspace{4}
+\noindent
+M (number of simulations) = 1,000
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Experiment 1: three operating \\ characteristics (2/5)}
+
+
+\vspace{65}
+\noindent
+$\hat{\phi}_{R}^{b}$, an estimate of the \textbf{percent bias} for the MLE of $\beta_{X}$, defined as:
+
+\vspace{-4}
+
+$$
+\hat{\phi}_{R}^{b} = \frac{1}{R} \sum_{r=1}^{R} \frac{\hat{\beta}_{X}^{r} - \beta_{X} }{\beta_{X}} * 100
+$$
+
+\noindent
+$\hat{\phi}_{R}^{c}$, an estimate of the\textbf{ coverage rate of the $\mathbf{95}$ \% Confidence interval}, defined as:
+
+\vspace{-4}
+
+$$
+\hat{\phi}_{R}^{c} = \sum_{r=1}^{R} \ \mathbbm{1} \   \bigg[  \hat{\beta}_{X}^{r} - 1.96 \ se( \hat{\beta}_{X}^{r}})  \geq   \beta_{X}     \leq \hat{\beta}_{X}^{r} + 1.96 \ se( \hat{\beta}_{X}^{r})  \bigg]
+$$
+
+\noindent
+$\hat{\phi}_{R}^{p}$, an estimate of the\textbf{ power} to detect an association, defined as:
+
+\vspace{-4}
+
+$$
+\hat{\phi}_{R}^{p} = \sum_{r=1}^{R} \ \mathbbm{1} \   \bigg[   \left|  \frac{ \hat{\beta}_{X}^{r}     }{  se( \hat{\beta}_{X}^{r})} \right|  < \hat{\beta}_{X}^{r}   \bigg]
+$$
+
+
+\end{frame}
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Experiment 1: MC estimates of percent \\ bias (3/5)}
+
+\vspace{15mm}
+\noindent
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=10cm]{Picture1}
+\caption{}
+\end{center}
+\end{figure}
+
+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Experiment 1: R code to generate the \\ graph (4/5)}
+
+\vspace{50}
+\noindent
+
+
+\par
+\tiny
+\begin{lstlisting}[language=R]
+beta11=numeric(10000)
+...
+beta61=numeric(10000)
+
+beta0= -1  ; betax = log(2)    # known parameter for logistic regression
+Px1=0.3 ; Px0=0.7   # P(X=1) and P(X=0)
+levels=c(1,0) ; N1=100 ; X=c(rep(1,30),rep(0,70))  # fixed
+
+set.seed(1)
+for(i in 1:10000)
+{  z1 = beta0 + betax *X      # linear combination with a bias
+  Py1 = 1/(1+exp(-z1))   # pass through an inv-logit function
+  y1 <- rbinom(N1,1,Py1)
+  beta11[i] <- glm(y1 ~ X, family="binomial"(link='logit'))$coeff[2]  }
+...
+set.seed(6)
+...
+# figure 1
+maxden=10000 ; den=1:maxden
+hplotR61=cumsum(round((round(beta11,2) - (betax*rep(1, maxden))) / 
+               (betax*rep(1, maxden)),2)*100) / den
+...
+hplotR65=cumsum(round((round(beta51,2) - (betax*rep(1, maxden))) /
+               (betax*rep(1, maxden)),2)*100) / den
+plot(hplotR61,type="l", xlim=c(1,maxden), ylim=c(-5,5), main="MC estimates of bias ..."
+     ,xlab="Number of replicates R", ylab="Bias", col = 'red3')
+lines(hplotR62)
+...
+lines(hplotR65)
+\end{lstlisting}
+
+\par
+\end{frame}
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Experiment 1: results (5/5)}
+
+
+\vspace{15mm}
+\noindent
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=7.5cm]{Picture2}
+\caption{}
+\end{center}
+\end{figure}
+
+
+
+
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Experiment 2:  quantification of MC \\ error
+ (1/4)}
+
+\vspace{60}
+\noindent
+\textbf{Setting 2}: 
+
+\vspace{10}
+\noindent
+By the strong Law of Large Numbers, we have that  $\hat{\phi}_{R} \rightarrow E \big[  \phi(X) \big]$
+
+\vspace{5}
+\noindent
+By the Central Limit Theorem, we know that $\sqrt{R} (\hat{\phi}_{R} - \phi) \rightarrow N \big(0, \sigma_{\phi}^{2} \big)$
+
+\vspace{15}
+\noindent
+We consider the two following measures:
+
+
+\begin{flalign}
+  (i) \ \ \hat{MCEclt} = \frac{ \hat{\sigma}_{\phi}}{R}   = \frac{1}{R}  \sqrt{   \sum_{r=1}^{R}  \big( \phi(X) - \hat{\phi}_{R}  \big)^{2}   }   &&
+\end{flalign}
+
+
+\begin{flalign}
+ (ii) \ \ \hat{MCEboot} =  \frac{1}{B}  \sqrt{   \sum_{b=1}^{B}  \big( \hat{\phi}_{R}( \mathbf{X}_{b}^{*}) - \overline{\hat{\phi}_{R}(\mathbf{X}_{b}^{*}})  \big)^{2}   }  &&
+\end{flalign}
+
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Experiment 2: results (2/4)}
+
+
+
+\vspace{15mm}
+\noindent
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=10.5cm]{Picture3}
+\caption{}
+\end{center}
+\end{figure}
+
+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Experiment 2: more results (3/4)}
+
+
+\vspace{15mm}
+\noindent
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=10cm]{Picture4}
+\caption{}
+\end{center}
+\end{figure}
+
+
+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Experiment 2: partial R code (4/4)}
+
+\vspace{30}
+\noindent
+
+
+\par
+\tiny
+\begin{lstlisting}[language=R]
+betaA2=numeric(100)
+...
+betaF2=numeric(10000)
+betamean100=numeric(1000)
+...
+betamean10000=numeric(1000)
+
+# R=100
+set.seed(3)
+for(j in 1:1000)  {
+  for(i in 1:100)
+  { beta0= -1     # known parameter for logistic regression
+    betax = log(2)   # [1] 0.6931472  parameter for logistic regression
+    levels=c(1,0)
+    X=c(rep(1,30),rep(0,70))  # fixed
+    z1 = beta0 + (betax *X)      # linear combination 
+    Py1 = 1/(1+exp(-z1))   # inv-logit function
+    y1 <- as.numeric(rbinom(100,1,Py1))
+    betaA2[i] <- glm(y1 ~ X, family="binomial"(link=logit))$coeff[2]      }
+  betamean100[j] = mean(betaA2)       }
+...
+calcPB <- function(data, index, truth) (mean(data[index]) - truth) / truth * 100
+
+calcSE <- function(data, index) sd(data[index])
+
+mceBoot <- function(data, B, type="", truth=NULL) {...}
+
+## for  M=500,000
+# R=100
+set.seed(3)
+mceBoot(betamean100_2, B=100,type="PB", truth=betax)
+# [1] 0.009481879
+\end{lstlisting}
+
+\par
+\end{frame}
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Some remarks }
+
+\vspace{}
+\noindent
+$(i)$ \hspace{9} The magnitude of the MC error seems to be linear in $1 / \sqrt{R}$, (see plot next slide).
+
+\vspace{10}
+\noindent
+$(ii)$ \hspace{9}  As $1 / \sqrt{R}$ tends to $0$, MC error tends to $0$, (see plot next slide).
+
+\vspace{10}
+\noindent
+$(iii)$ \hspace{8} An idea: maybe we could use a constrained linear regression to estimate R to achieve an acceptable level of MC error.
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Magnitude of the MC error as a \\ function of R}
+
+
+\vspace{15mm}
+\noindent
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=11cm]{Picture5}
+\caption{}
+\end{center}
+\end{figure}
+
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{Conclusions}
+
+\vspace{15}
+\noindent
+$(i)$ \hspace{9} The MC error can be more substantial than traditionally though.
+
+\vspace{10}
+\noindent
+$(ii)$ \hspace{9}  Even after $500,000$ simulations, there is residual uncertainty.
+
+\vspace{10}
+\noindent
+$(iii)$  \hspace{8} The magnitude of MC error depends on various factors, i.e. parameters, operating characteristics, variability in the data, etc.
+
+
+\vspace{10}
+\noindent
+$(iv)$  \hspace{9} The MC error can be drastically reduced by increasing R, the number of replicates.
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}[ fragile]{}
+
+\frametitle{References}
+
+\vspace{35}
+Elizabeth KOEHLER, Elizabeth BROWN, and Sebastien J.-P. A. HANEUSE, 2009. On the Assessment of Monte Carlo Error in Simulation-Based Statistical Analyses.
+
+\vspace{15}
+
+Christian P. ROBERT, George CASELLA, 2005. Monte Carlo Statistical Methods.
+
+\vspace{15}
+
+Maria L. RIZZO, 2008. Statistical computing with R.
+
+\vspace{15}
+F. H. C. MARRIOTT, 1979. Barnard's Monte Carlo Tests: How Many Simulations? 
+
+\vspace{15}
+\textbf{Full R code of this reproduced study available upon request}.
+
+
+
+
+\end{frame}
+
+
+\end{document}
